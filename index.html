@@ -297,9 +297,21 @@ function initGIS(){
   tc=google.accounts.oauth2.initTokenClient({
     client_id:Config.clientId,
     scope:'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/drive.metadata.readonly profile email',
+    prompt:'consent',
+    include_granted_scopes:false,
     callback:async resp=>{
       if(resp.error){ alert('Auth error: '+resp.error); return; }
       S.token=resp.access_token;
+      // Debug: verify Photos scope is in token
+      try{
+        const ti=await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${S.token}`);
+        const info=await ti.json();
+        console.log('Token scopes:', info.scope);
+        if(!info.scope||!info.scope.includes('photoslibrary')){
+          alert('⚠️ Photos scope was NOT granted.\n\nPlease sign out and sign in again — when Google shows the permission screen, make sure to click Allow for all permissions including Google Photos.');
+          return;
+        }
+      }catch(e){ console.warn('tokeninfo check failed',e); }
       try{ const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:`Bearer ${S.token}`}}); const u=await r.json(); S.email=u.email||''; S.avatar=u.picture||''; }catch{}
       $$('u-email',S.email); $('u-avatar').src=S.avatar;
       $('user-chip').style.display='flex';

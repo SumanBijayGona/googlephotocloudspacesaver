@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Cloud Space Saver — Free Your Google Storage</title>
+
+  <!-- REPLACE THIS with your actual Google Search Console verification code -->
+  <!-- Get it from: https://search.google.com/search-console → Add property → HTML tag -->
+  <meta name="google-site-verification" content="REPLACE_WITH_YOUR_VERIFICATION_CODE" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1a73e8; --blue-dk: #1557b0; --green: #1e8e3e;
+      --text: #202124; --muted: #5f6368; --border: #dadce0;
+      --bg: #f8f9fa; --surface: #ffffff;
+    }
+    body { font-family: 'Google Sans', 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--surface); }
+
+    /* ── Nav ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--surface); z-index: 10;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: var(--blue); text-decoration: none; }
+    .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--blue); }
+    .btn-launch {
+      background: var(--blue); color: #fff; padding: 10px 22px;
+      border-radius: 8px; text-decoration: none; font-size: 14px;
+      font-weight: 500; transition: background .15s;
+    }
+    .btn-launch:hover { background: var(--blue-dk); color: #fff; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center; padding: 80px 24px 60px;
+      background: linear-gradient(160deg, #e8f0fe 0%, #f8f9fa 60%);
+    }
+    .hero-badge {
+      display: inline-block; background: #e8f0fe; color: var(--blue);
+      font-size: 13px; font-weight: 600; padding: 4px 14px;
+      border-radius: 20px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.15; color: var(--text); max-width: 720px; margin: 0 auto 20px; }
+    .hero h1 span { color: var(--blue); }
+    .hero p { font-size: 20px; color: var(--muted); max-width: 560px; margin: 0 auto 36px; line-height: 1.6; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue); color: #fff; padding: 16px 36px;
+      border-radius: 10px; text-decoration: none; font-size: 16px; font-weight: 600;
+      transition: background .15s, transform .1s;
+    }
+    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--surface); color: var(--text); padding: 16px 36px;
+      border-radius: 10px; text-decoration: none; font-size: 16px; font-weight: 500;
+      border: 1px solid var(--border); transition: background .15s;
+    }
+    .btn-secondary:hover { background: var(--bg); }
+
+    /* ── What it does ── */
+    .section { max-width: 1060px; margin: 0 auto; padding: 72px 24px; }
+    .section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+    .section-sub { font-size: 17px; color: var(--muted); text-align: center; margin-bottom: 48px; }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+    .step {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+      padding: 28px 24px; text-align: center;
+    }
+    .step-icon { font-size: 40px; margin-bottom: 14px; }
+    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Features ── */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .feature {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+    }
+    .feature-icon { font-size: 28px; flex-shrink: 0; }
+    .feature h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .feature p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Stats ── */
+    .stats-bar {
+      background: var(--blue); color: #fff;
+      display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+      padding: 40px 24px; text-align: center;
+    }
+    .stat-item h3 { font-size: 36px; font-weight: 800; }
+    .stat-item p { font-size: 14px; opacity: .85; margin-top: 4px; }
+
+    /* ── Privacy promise ── */
+    .privacy-bar {
+      background: #f0faf4; border: 1px solid #c3e6cb;
+      border-radius: 14px; padding: 28px 32px; margin: 0 24px;
+      display: flex; align-items: center; gap: 20px; max-width: 860px; margin: 0 auto;
+    }
+    .privacy-bar .icon { font-size: 40px; flex-shrink: 0; }
+    .privacy-bar h3 { font-size: 17px; font-weight: 700; color: var(--green); margin-bottom: 6px; }
+    .privacy-bar p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px; font-size: 13px; color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; margin-left: 20px; }
+    footer a:hover { color: var(--blue); }
+
+    @media (max-width: 600px) {
+      nav { padding: 12px 16px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+      .stats-bar { gap: 32px; }
+      footer { flex-direction: column; text-align: center; }
+      footer a { margin: 0 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a href="home.html" class="nav-brand">
+    <img src="logo.png" alt="Logo" onerror="this.style.display='none'"/>
+    Photo Cloud Space Saver
+  </a>
+  <div class="nav-links">
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="index.html" class="btn-launch">Open App →</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">✦ Free · No signup required</div>
+  <h1>Stop paying for<br/><span>Google storage</span></h1>
+  <p>Photo Cloud Space Saver downloads your entire Google Photos library to your computer, renames every photo by date and location, and helps you reclaim your cloud space — for free.</p>
+  <div class="hero-btns">
+    <a href="index.html" class="btn-primary">Open App — it's free</a>
+    <a href="#how-it-works" class="btn-secondary">How it works</a>
+  </div>
+</section>
+
+<!-- How it works -->
+<div class="section" id="how-it-works">
+  <h2 class="section-title">How it works</h2>
+  <p class="section-sub">Three steps to free your Google storage forever.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">🔑</div>
+      <h3>1. Sign in with Google</h3>
+      <p>Securely connect your Google account. We only request read access to your photos library — nothing else.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">📂</div>
+      <h3>2. Choose a folder</h3>
+      <p>Pick any folder on your computer. Photos will be saved directly there — organized and renamed automatically.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">☁️→💾</div>
+      <h3>3. Sync &amp; free space</h3>
+      <p>The app downloads and renames all your photos, then guides you to delete them from Google Photos to free your cloud storage.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Features -->
+<div style="background:var(--bg); padding: 72px 0;">
+  <div class="section" style="padding-top:0; padding-bottom:0;">
+    <h2 class="section-title">Everything you need</h2>
+    <p class="section-sub">Built for people who've hit their Google storage limit.</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🏷️</div>
+        <div>
+          <h4>Smart photo renaming</h4>
+          <p>Every photo is renamed by date and location: <code>2024-03-15_10-30-00_Austin-TX.jpg</code>. No more IMG_4821.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📍</div>
+        <div>
+          <h4>GPS location tagging</h4>
+          <p>Reads GPS data from your photo's EXIF metadata and reverse-geocodes it to a real city name automatically.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <div>
+          <h4>Never downloads twice</h4>
+          <p>Tracks every photo it has saved. Sync as many times as you want — already downloaded photos are safely skipped.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💻</div>
+        <div>
+          <h4>Runs in your browser</h4>
+          <p>No app to install. Open it in Chrome or Edge and it works. Photos go from Google directly to your hard drive.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <div>
+          <h4>Live storage dashboard</h4>
+          <p>See your Google storage usage in real-time and track exactly how much space you're recovering.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🆓</div>
+        <div>
+          <h4>Completely free</h4>
+          <p>No subscription, no payment, no account needed beyond your Google login. Free forever.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat-item"><h3>100%</h3><p>Free to use</p></div>
+  <div class="stat-item"><h3>0 servers</h3><p>Your photos never leave your device</p></div>
+  <div class="stat-item"><h3>15 GB</h3><p>Free Google storage reclaimed per user</p></div>
+</div>
+
+<!-- Privacy promise -->
+<div class="section">
+  <div class="privacy-bar">
+    <div class="icon">🔒</div>
+    <div>
+      <h3>Your photos never touch our servers</h3>
+      <p>Photo Cloud Space Saver runs entirely in your browser. Photos are downloaded directly from Google to your computer. We have no servers, no database, and no analytics. We never see your photos. <a href="privacy.html" style="color:var(--blue);">Read our privacy policy →</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="text-align:center; padding: 20px 24px 80px; background: linear-gradient(160deg, #f8f9fa 0%, #e8f0fe 100%);">
+  <h2 style="font-size:32px;font-weight:800;margin-bottom:16px;">Ready to free your storage?</h2>
+  <p style="color:var(--muted);font-size:17px;margin-bottom:32px;">It takes less than 5 minutes to set up and start syncing.</p>
+  <a href="index.html" class="btn-primary" style="font-size:17px;padding:18px 44px;">Open Photo Cloud Space Saver →</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span>© 2025 Photo Cloud Space Saver. Built to help you own your photos.</span>
+  <div>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="index.html">Open App</a>
+  </div>
+</footer>
+
+</body>
+</html>
